@@ -26,4 +26,5 @@ jobs:
           distribution: "temurin"
           java-version: "8"
       - name: Build with Maven
+        working-directory: java
         run: mvn --projects java --also-make clean install
