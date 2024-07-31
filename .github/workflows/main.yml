@@ -21,10 +21,9 @@ jobs:
           repository: google/libphonenumber
           ref: "v${{ github.event.inputs.version }}"
           fetch-depth: 0
-          fetch-tags: true
       - uses: actions/setup-java@v4
         with:
           distribution: "temurin"
-          java-version: "21"
+          java-version: "1.8"
       - name: Build with Maven
         run: mvn clean install
