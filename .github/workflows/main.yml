@@ -1,0 +1,30 @@
+name: "App: Update libphonenumber"
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "libphonenumber version to update to"
+        type: string
+        required: true
+
+env:
+  SLACK_TOKEN: ${{ secrets.SLACK_TOKEN }}
+
+jobs:
+  build-libphonenumber:
+    name: "Build libphonenumber"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          name: google/libphonenumber
+          ref: ${{ github.event.inputs.version }}
+          fetch-depth: 0
+          fetch-tags: true
+      - uses: actions/setup-java@v4
+        with:
+          distribution: "temurin"
+          java-version: "21"
+      - name: Build with Maven
+        run: mvn clean install
