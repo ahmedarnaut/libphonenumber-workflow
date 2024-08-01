@@ -19,11 +19,13 @@ jobs:
           # Trim any leading or trailing whitespace and export the result
           echo "CARRIER_VERSION=$(echo $MAVEN_OUTPUT | xargs)" >> $GITHUB_ENV
 
-          MAVEN_OUTPUT=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout -pl java/carrier)
+          MAVEN_OUTPUT=$(mvn dependency:list -pl java/carrier | grep 'com.googlecode.libphonenumber:prefixmapper' | awk -F: '{print }')
           # Trim any leading or trailing whitespace and export the result
           echo "PREFIXMAPPER_VERSION=$(echo $MAVEN_OUTPUT | xargs)" >> $GITHUB_ENV
       - name: Download carrier jar
-        run: echo $CARRIER_VERSION
+        run: |
+          curl -O https://repo1.maven.org/maven2/com/googlecode/libphonenumber/carrier/${{ CARRIER_VERSION }}/carrier-${{ CARRIER_VERSION }}.jar
+          curl -O https://repo1.maven.org/maven2/com/googlecode/libphonenumber/prefixmapper/${{ PREFIXMAPPER_VERSION }}/prefixmapper-${{ PREFIXMAPPER_VERSION }}.jar
       - uses: actions/upload-artifact@v4
         with:
           name: libphonenumber-artifacts
