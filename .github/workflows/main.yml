@@ -3,9 +3,6 @@ name: "App: Update libphonenumber"
 on:
   workflow_dispatch:
 
-env:
-  SLACK_TOKEN: ${{ secrets.SLACK_TOKEN }}
-
 jobs:
   build-libphonenumber:
     name: "Build libphonenumber"
