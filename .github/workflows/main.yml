@@ -16,8 +16,8 @@ jobs:
       - name: Get lib versions
         id: get-lib-versions
         run: |
-          echo "CARRIER_VERSION = echo "mvn help:evaluate -Dexpression=project.version -q -DforceStdout -pl java/carrier" >> $CARRIER_VERSION
-          echo "PREFIXMAPPER_VERSION = echo "mvn help:evaluate -Dexpression=project.dependencies | grep -A 2 'com.googlecode.libphonenumber:carrier' | awk -F: '{print $4}" >> $PREFIXMAPPER_VERSION
+          echo "CARRIER_VERSION = mvn help:evaluate -Dexpression=project.version -q -DforceStdout -pl java/carrier" >> $CARRIER_VERSION
+          echo "PREFIXMAPPER_VERSION = mvn help:evaluate -Dexpression=project.dependencies | grep -A 2 'com.googlecode.libphonenumber:carrier' | awk -F: '{print $4}" >> $PREFIXMAPPER_VERSION
       - name: Download libs
         run: |
           curl -O https://repo1.maven.org/maven2/com/googlecode/libphonenumber/carrier/${{ CARRIER_VERSION }}/carrier-${{ CARRIER_VERSION }}.jar
