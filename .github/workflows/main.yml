@@ -24,8 +24,8 @@ jobs:
           echo "PREFIXMAPPER_VERSION=$(echo $MAVEN_OUTPUT | xargs)" >> $GITHUB_ENV
       - name: Download carrier jar
         run: |
-          curl -O https://repo1.maven.org/maven2/com/googlecode/libphonenumber/carrier/${CARRIER_VERSION}/carrier-${CARRIER_VERSION}.jar
-          curl -O https://repo1.maven.org/maven2/com/googlecode/libphonenumber/prefixmapper/${PREFIXMAPPER_VERSION}/prefixmapper-${PREFIXMAPPER_VERSION}.jar
+          curl -O https://repo1.maven.org/maven2/com/googlecode/libphonenumber/carrier/${{ env.CARRIER_VERSION }}/carrier-${{ env.CARRIER_VERSION }}.jar
+          curl -O https://repo1.maven.org/maven2/com/googlecode/libphonenumber/prefixmapper/${{ env.PREFIXMAPPER_VERSION }}/prefixmapper-${{ env.PREFIXMAPPER_VERSION }}.jar
       - uses: actions/upload-artifact@v4
         with:
           name: libphonenumber-artifacts
