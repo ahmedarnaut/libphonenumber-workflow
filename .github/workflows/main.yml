@@ -26,4 +26,4 @@ jobs:
           git add .
 
           COMMIT_MESSAGE="${{ github.event.inputs.jira-ticket }}: Update libphonenumber to"
-          git commit -m `${COMMIT_MESSAGE}`
+          git commit -m "${COMMIT_MESSAGE}"
