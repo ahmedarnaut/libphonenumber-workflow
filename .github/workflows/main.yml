@@ -21,3 +21,9 @@ jobs:
         run: |
           BRANCH_NAME="feature/${{ github.event.inputs.jira-ticket }}"
           git checkout -b ${BRANCH_NAME}
+
+          touch file
+          git add .
+
+          COMMIT_MESSAGE="${{ github.event.inputs.jira-ticket }}: Update libphonenumber to"
+          git commit -m `${COMMIT_MESSAGE}`
