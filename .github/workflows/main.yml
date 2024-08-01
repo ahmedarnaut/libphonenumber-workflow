@@ -26,9 +26,9 @@ jobs:
         run: mkdir artifacts
       - name: Download artifacts
         run: |
-          curl -O https://repo1.maven.org/maven2/com/googlecode/libphonenumber/libphonenumber/8.13.42/libphonenumber-8.13.42-no-metadata.jar -o artifacts
-          curl -O https://repo1.maven.org/maven2/com/googlecode/libphonenumber/carrier/${{ env.CARRIER_VERSION }}/carrier-${{ env.CARRIER_VERSION }}.jar -o artifacts
-          curl -O https://repo1.maven.org/maven2/com/googlecode/libphonenumber/prefixmapper/${{ env.PREFIXMAPPER_VERSION }}/prefixmapper-${{ env.PREFIXMAPPER_VERSION }}.jar -o artifacts
+          curl -O --output-dir artifacts https://repo1.maven.org/maven2/com/googlecode/libphonenumber/libphonenumber/8.13.42/libphonenumber-8.13.42-no-metadata.jar
+          curl -O --output-dir artifacts https://repo1.maven.org/maven2/com/googlecode/libphonenumber/carrier/${{ env.CARRIER_VERSION }}/carrier-${{ env.CARRIER_VERSION }}.jar
+          curl -O --output-dir artifacts https://repo1.maven.org/maven2/com/googlecode/libphonenumber/prefixmapper/${{ env.PREFIXMAPPER_VERSION }}/prefixmapper-${{ env.PREFIXMAPPER_VERSION }}.jar
       - name: Copy METADATA
         run: cp -R java/libphonenumber/src/com/google/i18n/phonenumbers/data/ artifacts/metadata
       - uses: actions/upload-artifact@v4
