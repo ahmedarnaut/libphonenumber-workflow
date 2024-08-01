@@ -17,7 +17,11 @@ jobs:
         run: |
           MAVEN_OUTPUT=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout -pl java/carrier)
           # Trim any leading or trailing whitespace and export the result
-          echo "CARRIER_VERSION=$(echo $MAVEN_OUTPUT | xargs}" >> $GITHUB_ENV
+          echo "CARRIER_VERSION=$(echo $MAVEN_OUTPUT | xargs)" >> $GITHUB_ENV
+
+          MAVEN_OUTPUT=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout -pl java/carrier)
+          # Trim any leading or trailing whitespace and export the result
+          echo "PREFIXMAPPER_VERSION=$(echo $MAVEN_OUTPUT | xargs)" >> $GITHUB_ENV
       - name: Download carrier jar
         run: echo $CARRIER_VERSION
       - uses: actions/upload-artifact@v4
