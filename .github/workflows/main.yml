@@ -12,11 +12,14 @@ jobs:
         with:
           repository: google/libphonenumber
           ref: "v8.13.42"
-          fetch-depth: 0  
+          fetch-depth: 0 
       - name: Get lib versions
         run: |
-          echo "CARRIER_VERSION=mvn help:evaluate -Dexpression=project.version -q -DforceStdout -pl java/carrier" >> $CARRIER_VERSION
-          echo "PREFIXMAPPER_VERSION=mvn help:evaluate -Dexpression=project.dependencies | grep -A 2 'com.googlecode.libphonenumber:carrier' | awk -F: '{print $4}" >> $PREFIXMAPPER_VERSION
+          OUTPUT=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout -pl java/carrier)
+          echo "CARRIER_VERSION=${OUTPUT}" >> $GITHUB_ENV
+
+          OUTPUT=$(mvn help:evaluate -Dexpression=project.dependencies | grep -A 2 'com.googlecode.libphonenumber:carrier' | awk -F: '{print $4})
+          echo "PREFIXMAPPER_VERSION=${OUTPUT}" >> $GITHUB_ENV
       - name: Download carrier jar
         run: curl -O https://repo1.maven.org/maven2/com/googlecode/libphonenumber/carrier/${{ CARRIER_VERSION }}/carrier-${{ CARRIER_VERSION }}.jar
              #curl -O https://repo1.maven.org/maven2/com/googlecode/libphonenumber/prefixmapper/${{ PREFIXMAPPER_VERSION }}/prefixmapper-${{ PREFIXMAPPER_VERSION }}.jar
