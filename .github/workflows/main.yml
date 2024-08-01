@@ -18,10 +18,9 @@ jobs:
         run: |
           echo "CARRIER_VERSION = mvn help:evaluate -Dexpression=project.version -q -DforceStdout -pl java/carrier" >> $CARRIER_VERSION
           echo "PREFIXMAPPER_VERSION = mvn help:evaluate -Dexpression=project.dependencies | grep -A 2 'com.googlecode.libphonenumber:carrier' | awk -F: '{print $4}" >> $PREFIXMAPPER_VERSION
-      - name: Download libs
-        run: |
-          curl -O https://repo1.maven.org/maven2/com/googlecode/libphonenumber/carrier/$CARRIER_VERSION/carrier-${{ CARRIER_VERSION }}.jar
-          curl -O https://repo1.maven.org/maven2/com/googlecode/libphonenumber/prefixmapper/${{ PREFIXMAPPER_VERSION }}/prefixmapper-${{ PREFIXMAPPER_VERSION }}.jar
+      - name: Download carrier jar
+        run: curl -O https://repo1.maven.org/maven2/com/googlecode/libphonenumber/carrier/$CARRIER_VERSION/carrier-${{ CARRIER_VERSION }}.jar
+        #curl -O https://repo1.maven.org/maven2/com/googlecode/libphonenumber/prefixmapper/${{ PREFIXMAPPER_VERSION }}/prefixmapper-${{ PREFIXMAPPER_VERSION }}.jar
       - uses: actions/upload-artifact@v4
         with:
           name: libphonenumber-artifacts
