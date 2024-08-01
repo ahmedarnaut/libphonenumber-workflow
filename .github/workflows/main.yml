@@ -15,8 +15,13 @@ jobs:
           fetch-depth: 0 
       - name: Get lib versions
         run: |
-          echo "CARRIER_VERSION=$(echo (mvn help:evaluate -Dexpression=project.version -q -DforceStdout -pl java/carrier))" >> $GITHUB_ENV
-
+          # Run Maven command and capture output  
+          MAVEN_OUTPUT=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout -pl java/carrier)
+          # Trim any leading or trailing whitespace
+          MAVEN_OUTPUT=$(echo $MAVEN_OUTPUT | xargs)
+          # Export the result to GITHUB_ENV
+          echo "CARRIER_VERSION=${MAVEN_OUTPUT}" >> $GITHUB_ENV
+        
           OUTPUT=$(mvn help:evaluate -Dexpression=project.dependencies | grep -A 2 'com.googlecode.libphonenumber:carrier' | awk -F: '{print $4})
           echo "PREFIXMAPPER_VERSION=${OUTPUT}" >> $GITHUB_ENV
       - name: Download carrier jar
