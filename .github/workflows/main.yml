@@ -19,5 +19,5 @@ jobs:
           fetch-depth: 0 
       - name: Get lib versions
         run: |
-          BRANCH_NAME=$(feature/${{ github.event.inputs.jira-ticket }})
+          BRANCH_NAME="feature/${{ github.event.inputs.jira-ticket }}"
           git checkout -b ${BRANCH_NAME}
