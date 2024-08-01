@@ -21,8 +21,7 @@ jobs:
           OUTPUT=$(mvn help:evaluate -Dexpression=project.dependencies | grep -A 2 'com.googlecode.libphonenumber:carrier' | awk -F: '{print $4})
           echo "PREFIXMAPPER_VERSION=${OUTPUT}" >> $GITHUB_ENV
       - name: Download carrier jar
-        run: curl -O https://repo1.maven.org/maven2/com/googlecode/libphonenumber/carrier/${{ CARRIER_VERSION }}/carrier-${{ CARRIER_VERSION }}.jar
-             #curl -O https://repo1.maven.org/maven2/com/googlecode/libphonenumber/prefixmapper/${{ PREFIXMAPPER_VERSION }}/prefixmapper-${{ PREFIXMAPPER_VERSION }}.jar
+        run: echo $CARRIER_VERSION
       - uses: actions/upload-artifact@v4
         with:
           name: libphonenumber-artifacts
