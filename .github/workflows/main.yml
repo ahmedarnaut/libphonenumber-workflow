@@ -21,9 +21,6 @@ jobs:
           MAVEN_OUTPUT=$(echo $MAVEN_OUTPUT | xargs)
           # Export the result to GITHUB_ENV
           echo "CARRIER_VERSION=${MAVEN_OUTPUT}" >> $GITHUB_ENV
-        
-          OUTPUT=$(mvn help:evaluate -Dexpression=project.dependencies | grep -A 2 'com.googlecode.libphonenumber:carrier' | awk -F: '{print $4})
-          echo "PREFIXMAPPER_VERSION=${OUTPUT}" >> $GITHUB_ENV
       - name: Download carrier jar
         run: echo $CARRIER_VERSION
       - uses: actions/upload-artifact@v4
