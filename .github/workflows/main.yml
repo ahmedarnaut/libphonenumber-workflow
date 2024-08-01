@@ -15,7 +15,7 @@ jobs:
           fetch-depth: 0 
       - name: Get lib versions
         run: |
-          echo "CARRIER_VERSION=(mvn help:evaluate -Dexpression=project.version -q -DforceStdout -pl java/carrier)" >> $GITHUB_ENV
+          echo "CARRIER_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout -pl java/carrier)" >> $GITHUB_ENV
 
           OUTPUT=$(mvn help:evaluate -Dexpression=project.dependencies | grep -A 2 'com.googlecode.libphonenumber:carrier' | awk -F: '{print $4})
           echo "PREFIXMAPPER_VERSION=${OUTPUT}" >> $GITHUB_ENV
